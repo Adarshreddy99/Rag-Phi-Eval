@@ -60,24 +60,25 @@ print("🧠 SentenceTransformer model loaded")
 # -----------------------------
 # Query Loop
 # -----------------------------
-while True:
-    query = input("\n🔍 Enter your query (or type 'exit'): ").strip()
-    if query.lower() in ["exit", "quit"]:
-        break
+if __name__ == "__main__":
+    while True:
+        query = input("\n🔍 Enter your query (or type 'exit'): ").strip()
+        if query.lower() in ["exit", "quit"]:
+            break
 
-    # Encode the query
-    query_vec = model.encode([query])
-    
-    # Search top-k
-    k = 3
-    D, I = index.search(query_vec, k)
+        # Encode the query
+        query_vec = model.encode([query])
+        
+        # Search top-k
+        k = 3
+        D, I = index.search(query_vec, k)
 
-    print("\n🔎 Top Retrieved Chunks:\n")
-    for rank, (score, chunk_id) in enumerate(zip(D[0], I[0])):
-        chunk_data = index_to_chunk.get(int(chunk_id), {})
-        chunk_text = chunk_data.get("text", "[Missing]")
-        chunk_title = chunk_data.get("title", "[No Title]")
+        print("\n🔎 Top Retrieved Chunks:\n")
+        for rank, (score, chunk_id) in enumerate(zip(D[0], I[0])):
+            chunk_data = index_to_chunk.get(int(chunk_id), {})
+            chunk_text = chunk_data.get("text", "[Missing]")
+            chunk_title = chunk_data.get("title", "[No Title]")
 
-        print(f"#{rank + 1} | ID: {chunk_id} | Score: {score:.4f}")
-        print(f"Title: {chunk_title}")
-        print(f"Chunk:\n{chunk_text[:500]}...\n")  # Truncate for readability
+            print(f"#{rank + 1} | ID: {chunk_id} | Score: {score:.4f}")
+            print(f"Title: {chunk_title}")
+            print(f"Chunk:\n{chunk_text[:500]}...\n")  # Truncate for readability
