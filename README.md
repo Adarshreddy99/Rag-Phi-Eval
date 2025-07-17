@@ -62,5 +62,14 @@ lavita/MedQuAD → 500 Q&A pairs
 # Science QA
 sciq → 500 science facts (question + support)
 
-# Indian Legal QA
-MeeraR/legal-qa-dataset → 500 legal Q&A samples
+
+Final Learnings
+All three RAG pipelines performed similarly on this relatively simple, clean, and small dataset.
+
+The limited document count and low query complexity allowed Basic RAG to work effectively in most cases.
+
+However, as the query complexity increases or document structure becomes denser or noisier, basic dense retrieval alone begins to fail.
+
+In such situations, advanced RAG methods like HyDE (for semantic abstraction) or CRAG (for decomposition and correction) become essential.
+
+The nature of the task and documents should guide the RAG pipeline — not all tasks need complexity, but complex tasks absolutely demand it.
